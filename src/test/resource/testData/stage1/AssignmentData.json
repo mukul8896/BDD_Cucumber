@@ -1,10 +1,14 @@
 {
-  "Some Scenario Name": {
+  "Automate Tricentis webpage": {
     "AssignmentActions": {
 
-      "data1": "some value"
-
-    }
-
-  }
+      "emailId" : "planittest78@gmail.com",
+      "password" : "123456",
+      "EmptyText" : "Your Shopping Cart is empty!",
+      "desktopType" : "Build your own cheap",
+      "quantity" : "2",
+      "PaymentMethod" : "Cash On Delivery",
+      "CODMessage" : "You will pay by COD"
+ }
+}
 }

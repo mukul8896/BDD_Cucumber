@@ -108,13 +108,14 @@
 				<version>1.2.1</version>
 				<executions>
 					<execution>
+						<phase>test</phase>
 						<goals>
 							<goal>java</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<mainClass>org.mukul.runner.runner</mainClass>
+					<mainClass>org.mks.runner.runner</mainClass>
 					<arguments>
 						<argument>JenkinsRun</argument>
 					</arguments>
