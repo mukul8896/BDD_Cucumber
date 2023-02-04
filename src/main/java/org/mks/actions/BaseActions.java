@@ -23,6 +23,17 @@ public class BaseActions {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public void waitForElementPresence(String element){
+        WebDriverWait wait = new WebDriverWait(DriverUtils.getDriver(),20000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(element)));
+    }
+
+    public void waitForElementVisiblity(String element){
+        WebDriverWait wait = new WebDriverWait(DriverUtils.getDriver(),20000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(element)));
+    }
+
+
     public  void waitForPageLoadComplete(){
         WebDriverWait wait = new WebDriverWait(DriverUtils.getDriver(),20000);
         wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));

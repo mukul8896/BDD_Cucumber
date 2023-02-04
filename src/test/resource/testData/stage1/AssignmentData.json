@@ -8,7 +8,8 @@
       "desktopType" : "Build your own cheap",
       "quantity" : "2",
       "PaymentMethod" : "Cash On Delivery",
-      "CODMessage" : "You will pay by COD"
+      "CODMessage" : "You will pay by COD",
+      "productAdditionSuccessMsg": "The product has been added to your shopping cart"
  }
 }
 }

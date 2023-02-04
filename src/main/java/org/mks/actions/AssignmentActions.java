@@ -6,6 +6,7 @@ import org.mks.applicationUtils.Status;
 import org.mks.pageObjects.AssignmentPageObjects;
 import org.mks.runInitilization.DriverUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
@@ -14,7 +15,7 @@ import junit.framework.Assert;
 
 import java.util.List;
 
-public class AssignmentActions extends BaseActions {	
+public class AssignmentActions extends BaseActions {
 
 	JSONObject testData;
 	public AssignmentActions(){
@@ -75,7 +76,6 @@ public class AssignmentActions extends BaseActions {
 	public void selectProduct() {
 		findElement(AssignmentPageObjects.desktop).click();
 		String desktopType = testData.get("desktopType").toString();
-
 		String price = DriverUtils.getDriver().findElement(By.xpath("//a[contains(text(),'"+desktopType+"')]//following::div[6]/span")).getText();
 		testData.put("Price", price);
 		DriverUtils.getDriver().findElement(By.xpath("//a[contains(text(),'"+desktopType+"')]//following::div[7]/input")).click();
@@ -83,7 +83,10 @@ public class AssignmentActions extends BaseActions {
 
 	public void selectQuantity() throws InterruptedException {
 		String quantity = testData.get("quantity").toString();
-		Thread.sleep(3000);
+		waitForPageLoadComplete();
+		JavascriptExecutor js = (JavascriptExecutor) DriverUtils.getDriver();
+		js.executeScript("window.scrollBy(0,document.body.scrollHeight)", "");
+		waitForElementPresence(AssignmentPageObjects.quantity_texbox);
 		findElement(AssignmentPageObjects.quantity_texbox).clear();
 		findElement(AssignmentPageObjects.quantity_texbox).sendKeys(quantity);
 	}
@@ -98,14 +101,15 @@ public class AssignmentActions extends BaseActions {
 	}
 
 	public void validateMessageForProductsAddition() {
+		waitForElementVisiblity(AssignmentPageObjects.barNotification);
 		System.out.println(findElement(AssignmentPageObjects.barNotification).getText());
 		String actual = findElement(AssignmentPageObjects.barNotification).getText();
-		String expected = testData.get("data").toString();
-		//Assert
-		if(actual.equals(expected)){
-			Reporting.addHardStepWithScreenShot("Txt Matches", Status.PASS);
+		String expected = testData.get("productAdditionSuccessMsg").toString();
+		System.out.println(expected);
+		if(actual.trim().equals(expected.trim())){
+			Reporting.addHardStepWithScreenShot("Text Matches", Status.PASS);
 		}else{
-			Reporting.addHardStepWithScreenShot("Txt not Matches", Status.FAIL);
+			Reporting.addHardStepWithScreenShot("Text  does not Match", Status.FAIL);
 		}
 	}
 
@@ -144,7 +148,7 @@ public class AssignmentActions extends BaseActions {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void selectShippingAddress() {
 		findElement(AssignmentPageObjects.pickupCheckbox).click();
 		findElement(AssignmentPageObjects.continueButton1).click();
@@ -155,7 +159,7 @@ public class AssignmentActions extends BaseActions {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void selectPaymentMethod() {
 		String paymentMethod = testData.get("PaymentMethod").toString();
 		DriverUtils.getDriver().findElement(By.xpath("//label[contains(text(),'"+paymentMethod+"')]//preceding-sibling::input")).click();
@@ -167,7 +171,7 @@ public class AssignmentActions extends BaseActions {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void validateMessageForCOD() {
 		String ActualCODMessage=findElement(AssignmentPageObjects.codMessage).getText();
 		String expectedCODMessage= testData.get("CODMessage").toString();
@@ -180,7 +184,7 @@ public class AssignmentActions extends BaseActions {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void clickOnConfirmButton() {
 		findElement(AssignmentPageObjects.confirmButton).click();
 		try {
@@ -189,16 +193,16 @@ public class AssignmentActions extends BaseActions {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void validateSuccessfulOrder() {
 		String orderplacedmsg = findElement(AssignmentPageObjects.orderPlacedMessage).getText();
 		String orderNomsg = findElement(AssignmentPageObjects.orderNumberMessage).getText();
 		System.out.println(orderNomsg.split(":")[1].trim());
-		
+
 	}
-	
+
 	public void logOut() {
 		findElement(AssignmentPageObjects.logout).click();
 	}
