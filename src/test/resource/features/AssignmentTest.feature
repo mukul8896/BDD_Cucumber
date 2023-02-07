@@ -2,11 +2,11 @@ Feature: Planit Assigmnet
 
   Background:
     Given Navigate to the URL
+    When User Click on login button
+    When User login with credentials
 
   @planitassignment
   Scenario: Automate Tricentis webpage
-    When User Click on login button
-    When User login with credentials
     Then validate the user account id
     Then User clear shoppingcart
     When mousehover on the given category
@@ -31,7 +31,6 @@ Feature: Planit Assigmnet
     Then validate the message for successful order
     And User clicks on continue
     Then User logout from the application
-    
     
      
     

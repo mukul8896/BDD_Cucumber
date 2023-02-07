@@ -13,6 +13,7 @@ import org.json.simple.parser.ParseException;
 import org.mks.runInitilization.DriverUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class ProjectUtils{
 	public static void initializeDriver() {
@@ -22,14 +23,23 @@ public class ProjectUtils{
 		switch (browser){
 			case "chrome" :
 				System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + File.separator + "driver" + File.separator + "chrome" + File.separator + "chromedriver.exe");
+				
+				//WebdriversSession logic here to implementt driver according to capablities needed
+				
 				driver=new ChromeDriver();
 				driver.manage().window().maximize();
 				break;
 
 			case "ie" :
 				break;
+				
+			case "remote" :
+				
+				//can use grid or other tools eg: Browserstack,
+				break;
+				
 		}
-
+		
 		DriverUtils.setDriver(driver);
 	}
 	
@@ -48,6 +58,7 @@ public class ProjectUtils{
 	public static void initializeData() {
 		String scenarioName = DriverUtils.getScenario().getName();
 		String featureName = DriverUtils.getScenario().getId().split(":")[1];
+	
 		String testDataFileName = featureName.replace("Test","Data").replace("feature","json");
 		String env = DriverUtils.getProperties().getProperty("env");
 		System.out.println("Env: "+ env);

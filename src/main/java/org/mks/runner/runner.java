@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.junit.runner.RunWith;
 import org.mks.runInitilization.Hooks;
-
 import io.cucumber.core.cli.Main;
+
 
 public class runner
 {
-	public static void run(){
+	public static void runTest(){
 		String tags="@planitassignment";
 		
 		String features=System.getProperty("user.dir")+"/src/test/resource/features/";
@@ -23,16 +23,16 @@ public class runner
 	
     public static void main(String[] args)
     {
+    	// JenkinsRun / local
     	String run_mode="";
     	if(args.length>0)
     		run_mode=args[0];
 
     	if(!run_mode.equals("JenkinsRun")){
-    		Hooks.isRun=true;
-    		run();
+    		Hooks.isLocalReportRun=true;
+    		runTest();
     	}else{
-    		run();
+    		runTest();
     	}
-    	
     }
 }

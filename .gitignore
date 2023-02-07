@@ -1,3 +1,5 @@
+/reports
+
 /target
 
 .classpath
@@ -7,3 +9,5 @@
 .settings
 
 .vscode
+
+.project

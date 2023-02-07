@@ -14,11 +14,11 @@ import org.json.simple.parser.ParseException;
 import org.mks.applicationUtils.ProjectUtils;
 
 public class Hooks{
-	public static boolean isRun=false;
+	public static boolean isLocalReportRun=false;
 	
 	@Before(order = 0)
 	public void beforeAll() {
-		if(isRun){
+		if(isLocalReportRun){
 			Runtime.getRuntime().addShutdownHook(new Thread(()->{
 				Calendar date=Calendar.getInstance();
 				String reportFolder=date.get(Calendar.DAY_OF_MONTH)+"_"+date.get(Calendar.MONTH)+"_"+date.get(Calendar.HOUR)+"_"+date.get(Calendar.MINUTE)+"_"+date.get(Calendar.SECOND);
@@ -31,7 +31,7 @@ public class Hooks{
 				ReportBuilder builder=new ReportBuilder(jsonFiles, config);
 				builder.generateReports();
 			}));
-			isRun=false;
+			isLocalReportRun=false;
 		}	
 	}
 	
@@ -44,10 +44,10 @@ public class Hooks{
 	}
 	
 	@After
-	public void beforeScenario() {
-		System.out.println("close driver");
+	public void AfterScenario() {
+		System.out.println("closing driver");
 		if(DriverUtils.getDriver()!=null){
-			//DriverUtils.getDriver().quit();
+			DriverUtils.getDriver().quit();
 		}
 	}
 	
