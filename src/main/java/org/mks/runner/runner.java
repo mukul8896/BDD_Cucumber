@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.mks.runInitilization.Hooks;
 import io.cucumber.core.cli.Main;
 
-
 public class runner
 {
 	public static void runTest(){

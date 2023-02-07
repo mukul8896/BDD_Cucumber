@@ -6,12 +6,9 @@ import org.mks.applicationUtils.Status;
 import org.mks.pageObjects.AssignmentPageObjects;
 import org.mks.runInitilization.DriverUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import junit.framework.Assert;
 
 import java.util.List;
 
@@ -59,6 +56,8 @@ public class AssignmentActions extends BaseActions {
 		waitForPageLoadComplete();
 		waitForElementPresence(AssignmentPageObjects.ShoppingCart_itemcount_link);
 		WebElement cart_item = findElement(AssignmentPageObjects.ShoppingCart_itemcount_link);
+		//logic to check any number of items
+
 		if(!cart_item.getText().contains("0")){
 			Reporting.addStepLog("Removing items from cart");
 			findElement(AssignmentPageObjects.ShoppingCart_link).click();
@@ -143,7 +142,7 @@ public class AssignmentActions extends BaseActions {
 		if(subTotalAmount.equals(findElement(AssignmentPageObjects.subTotal).getText().substring(0,4))){
 			Reporting.addHardStepWithScreenShot("Sub total is correct",Status.PASS);
 		}else{
-			Reporting.addHardStepWithScreenShot("Sub total is correct",Status.FAIL);
+			Reporting.addHardStepWithScreenShot("Sub total is in-correct",Status.FAIL);
 		}
 	}
 
